@@ -1,7 +1,13 @@
+import { HeroSection } from "./components/pages/home/hero-section";
+import { HigthlightedProjects } from "./components/pages/home/higthlighted-projects";
+import { KnownTechs } from "./components/pages/known-techs";
+
 export default async function Home() {
   return (
     <>
-      <h1>Home Page</h1>
+      <HeroSection />
+      <KnownTechs />
+      <HigthlightedProjects />
     </>
   )
 }
