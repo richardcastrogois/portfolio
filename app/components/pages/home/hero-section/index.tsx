@@ -1,31 +1,19 @@
 'use client'
 
 import { Button } from "@/app/components/button";
+import { CMSIcon } from "@/app/components/cms-icon";
+import { RichText } from "@/app/components/rich-text";
 import { TechBadge } from "@/app/components/tech-badge";
+import { HomePageInfo } from "@/app/types/page-info";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { TbBrandGithub, TbBrandLinkedin, TbBrandInstagram, TbBrandWhatsapp } from 'react-icons/tb';
 
-const MOCK_CONTACTS = [
-    {
-        url:'https://github.com/richardcastrogois',
-        icon: <TbBrandGithub />
-    },
-    {
-        url:'https://www.linkedin.com/in/richard-castro-00a6b42bb/',
-        icon: <TbBrandLinkedin />
-    },
-    {
-        url:'https://www.instagram.com/richardcastrogois/',
-        icon: <TbBrandInstagram />
-    },
-    {
-        url:'https://www.linkedin.com/in/richard-castro-00a6b42bb/',
-        icon: <TbBrandWhatsapp />
-    },
-]
 
-export const HeroSection = () => {
+type HomeSectionProps = {
+    homeInfo: HomePageInfo
+}
+
+export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
     const handleContact = () => {
         const contactSection = document.querySelector('#contact') as HTMLElement | null;
         
@@ -64,11 +52,13 @@ export const HeroSection = () => {
                     <p className="font-mono text-emerald-400">Olá, meu nome é</p>
                     <h2 className="text-4xl font-medium mt-2">Richard Castro</h2>
 
-                    <p className="text-gray-400 my-6 text-sm sm:text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis delectus tempora vitae minus similique dolore consequatur earum esse totam, soluta enim quas possimus temporibus quisquam repudiandae optio tempore est? Nihil.</p>
+                    <div className="text-gray-400 my-6 text-sm sm:text-base">
+                        <RichText content={homeInfo.introduction.raw} />
+                    </div>
 
                     <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-                        {Array.from({ length: 7 }).map((_, index) => (
-                        <TechBadge name="Next.js" />
+                        {homeInfo.technologies.map((tech) => (
+                        <TechBadge name={tech.name} />
                         ))}
                     </div>
 
@@ -79,14 +69,15 @@ export const HeroSection = () => {
                         </Button>
 
                         <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-                            {MOCK_CONTACTS.map((contact, index) => (
+                            {homeInfo.socials.map((contact, index) => (
                                 <a
                                     href={contact.url}
                                     key={'contact-${index}'}
                                     target="_blank"
                                     className=" hover:text-gray-100 transition-colors"
                                 >
-                                    {contact.icon}
+                                    <CMSIcon icon={contact.iconSvg} />
+                                    
                                 </a>
                             ))}
                         </div>
@@ -94,7 +85,7 @@ export const HeroSection = () => {
                 </div>
 
                 <Image
-                    src="/images/profile2.png"
+                    src={"/images/profile2.png"}
                     alt="Foto de perfil do Richard Castro"
                     width={420}
                     height={404}
