@@ -76,7 +76,8 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                                     target="_blank"
                                     className=" hover:text-gray-100 transition-colors"
                                 >
-                                    <CMSIcon icon={contact.iconSvg} />
+                                    <CMSIcon icon={contact.iconSvg} className="hover:scale-125" />
+
                                     
                                 </a>
                             ))}
