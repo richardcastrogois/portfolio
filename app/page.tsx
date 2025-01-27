@@ -1,5 +1,5 @@
 import { HeroSection } from "./components/pages/home/hero-section";
-import { HigthlightedProjects } from "./components/pages/home/higthlighted-projects";
+import { HighlightedProjects } from "./components/pages/home/higthlighted-projects";
 import { WorkExperience } from "./components/pages/home/work-experience";
 import { KnownTechs } from "./components/pages/known-techs";
 import { HomePageData } from "./types/page-info";
@@ -27,6 +27,17 @@ const getPageData = async (): Promise<HomePageData> => {
           name
           startDate
         }
+        highlightProjects {
+          slug
+          thumbnail {
+            url
+          }
+          title
+          shortDescription
+          technologies {
+            name
+          }
+        }
       }
     }
   `
@@ -45,7 +56,7 @@ export default async function Home() {
     <>
       <HeroSection homeInfo={pageData} />
       <KnownTechs techs={pageData.knownTechs} />
-      <HigthlightedProjects />
+      <HighlightedProjects projects={pageData.highlightProjects} />
       <WorkExperience />
     </>
   )

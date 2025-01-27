@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ['media.graphassets.com'],
+    domains: ['us-west-2.graphassets.com', 'media.graphassets.com'], // Adicione os dois domínios
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
