@@ -16,7 +16,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         width={420} 
         height={304} 
         src={project.thumbnail.url}
-        alt="Imagem teste"
+        alt={`Thumbnail do projeto ${project.title}`}
         className="w-full h-[200px] sm:h-[300px] lg:w-[420px] lg:min-h-full object-cover rounded-lg"
         />
       </div>
@@ -29,20 +29,18 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           alt=""
           src="/images/icons/project-title-icon.svg"
           />
-          BookWise
+          {project.title}
         </h3>
 
-        <p className="text-gray-400 my-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur voluptatum cupiditate in earum nam sint aliquid laboriosam, quaerat, quisquam fugiat ab, dignissimos odio mollitia expedita cum minima obcaecati provident assumenda quibusdam libero? Esse impedit molestiae dolorum nulla und?</p>
+        <p className="text-gray-400 my-6">{project.shortDescription}</p>
 
         <div className="flex gap-x-2 gap-y-3 flex-wrap mb-8 lg:max-w-[350px]">
-          <TechBadge name="Next.js" />
-          <TechBadge name="Next.js" />
-          <TechBadge name="Next.js" />
-          <TechBadge name="Next.js" />
-          <TechBadge name="Next.js" />
+          {project.technologies.map(tech => (
+            <TechBadge key={`${project.title}-tech-${tech.name}`} name={tech.name} />
+          ))}
         </div>
 
-        <Link href="/projects/book-wise">
+        <Link href={`/projects/${project.slug}`}>
         Ver projeto
         <HiArrowNarrowRight />       
         </Link>
