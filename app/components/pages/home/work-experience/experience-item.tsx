@@ -12,7 +12,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     endDate, 
     companyName,
     companyLogo,
-    companyURL,
+    companyUrl,
     description,
     role,
     technologies
@@ -37,7 +37,7 @@ export const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       <div>
         <div className="flex flex-col gap-2 text-sm sm:text-base">
           <a 
-          href={companyURL}
+          href={companyUrl}
           target="_blank"
           className="text-gray-500 hover:text-emerald-500 transition-colors"
           >
