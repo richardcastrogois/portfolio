@@ -6,6 +6,18 @@ import { ContactForm } from './components/contact-form'
 import { Footer } from './components/footer'
 import { BackToTop } from './components/back-to-top'
 
+export const metadata = {
+  title: {
+    default: 'Home',
+    template: '%s | RC Dev'
+  },
+  icons: [
+    {
+      url: '/logoR-2.png'
+    }
+  ]
+}
+
 const inter = Inter({
   variable: '--font-inter',
   subsets: ['latin'],

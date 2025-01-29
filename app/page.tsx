@@ -5,6 +5,10 @@ import { KnownTechs } from "./components/pages/known-techs";
 import { HomePageData } from "./types/page-info";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 
+export const metadata = {
+  title: 'Home',
+}
+
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
     query PageInfoQuery {
