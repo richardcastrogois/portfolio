@@ -8,45 +8,44 @@ import { TechBadge } from "@/app/components/tech-badge";
 import { HomePageInfo } from "@/app/types/page-info";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
+import { motion } from 'framer-motion'
+import { techBadgeAnimation } from '@/app/lib/animations';
 
 type HomeSectionProps = {
     homeInfo: HomePageInfo
 }
 
+//Efeito de digitação
 const TypingEffect = ({ text }: { text: string }) => {
-    const [displayedText, setDisplayedText] = useState(''); // Texto exibido
-    const [index, setIndex] = useState(0); // Índice atual da digitação
-    const [isTyping, setIsTyping] = useState(true); // Controla se está digitando ou reiniciando
-    const typingSpeed = 100; // Velocidade da digitação
-    const resetDelay = 1000; // Tempo de pausa antes de reiniciar
+    const [displayedText, setDisplayedText] = useState('');
+    const [index, setIndex] = useState(0);
+    const [isTyping, setIsTyping] = useState(true);
+    const typingSpeed = 100;
+    const resetDelay = 1000;
 
     useEffect(() => {
         let timeout: NodeJS.Timeout;
 
         if (isTyping && index < text.length) {
-            // Adiciona o próximo caractere ao texto exibido
             timeout = setTimeout(() => {
                 setDisplayedText((prev) => prev + text[index]);
                 setIndex((prevIndex) => prevIndex + 1);
             }, typingSpeed);
         } else if (index === text.length && isTyping) {
-            // Pausa após concluir a digitação
             timeout = setTimeout(() => {
                 setIsTyping(false);
             }, resetDelay);
         } else if (!isTyping) {
-            // Reinicia o efeito sem remover o espaço
             timeout = setTimeout(() => {
-                setDisplayedText(''); // Limpa o texto
+                setDisplayedText('');
                 setIndex(0);
                 setIsTyping(true);
             }, resetDelay);
         }
 
-        return () => clearTimeout(timeout); // Limpa o timeout para evitar comportamentos indesejados
+        return () => clearTimeout(timeout);
     }, [text, index, isTyping]);
 
-    // Calcula largura fixa baseada no texto completo
     const placeholder = ' '.repeat(text.length);
 
     return (
@@ -58,21 +57,17 @@ const TypingEffect = ({ text }: { text: string }) => {
                 inline-block
             `}
             style={{
-                display: 'inline-block', // Garante que o elemento ocupe apenas o espaço necessário
-                textAlign: 'center', // Centraliza o texto internamente
-                width: `${text.length}ch`, // Define uma largura fixa com base no número de caracteres
-                whiteSpace: 'pre-wrap', // Mantém espaços em branco
+                display: 'inline-block',
+                textAlign: 'center',
+                width: `${text.length}ch`,
+                whiteSpace: 'pre-wrap',
             }}
         >
             {displayedText || placeholder}
         </div>
     );
 };
-
 export default TypingEffect;
-
-
-
 
 
 
@@ -109,9 +104,14 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
     return (
         <section className="w-full min-h-[755px] lg:min-h-screen bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]">
             <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
-                <div className="w-full lg:max-w-[530px]">
+                <motion.div 
+                    className="w-full lg:max-w-[530px]"
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <p className="font-mono text-emerald-400">Olá, meu nome é</p>
-                    {/* Efeito de digitação aqui */}
                     <h2 className="text-4xl font-medium mt-2">
                         <TypingEffect text="Richard Castro" />
                     </h2>
@@ -121,8 +121,13 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                     </div>
 
                     <div className="flex flex-wrap gap-x-2 gap-y-3 lg:w-full lg:justify-start lg:gap-x-4">
-                        {homeInfo.technologies.map((tech) => (
-                            <TechBadge name={tech.name} key={tech.name} />
+                        {homeInfo.technologies.map((tech, i) => (
+                            <TechBadge
+                                name={tech.name}
+                                key={`intro-tech-${tech.name}`}
+                                {...techBadgeAnimation}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                            />
                         ))}
                     </div>
 
@@ -145,15 +150,23 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                             ))}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
-                <Image
-                    className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
-                    width={420}
-                    height={404}
-                    src={homeInfo.profilePicture.url}
-                    alt="Foto de perfil do Gabriel Borges"
-                />
+                <motion.div
+                    initial={{ opacity: 0, y: 200, scale: 0.5 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 200, scale: 0.5 }}
+                    transition={{ duration: 1 }}
+                    className="origin-center"
+                >
+                    <Image
+                        className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
+                        width={420}
+                        height={404}
+                        src={homeInfo.profilePicture.url}
+                        alt="Foto de perfil do Gabriel Borges"
+                    />
+                </motion.div>
             </div>
         </section>
     );

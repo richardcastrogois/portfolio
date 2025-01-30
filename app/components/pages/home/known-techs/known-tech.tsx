@@ -1,6 +1,6 @@
 import { KnownTech as IKnownTech } from "@/app/types/projects"
 import { getRelativeTimeString } from "@/app/utils/get-relative-time"
-import { CMSIcon } from "../../cms-icon"
+import { CMSIcon } from "../../../cms-icon"
 
 type KnownTechProps = {
   tech: IKnownTech
