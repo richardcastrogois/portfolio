@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'; // Importando useState e useEffect do React
+import { useEffect, useState } from 'react';
 import { Button } from "@/app/components/button";
 import { CMSIcon } from "@/app/components/cms-icon";
 import { RichText } from "@/app/components/rich-text";
@@ -8,14 +8,66 @@ import { TechBadge } from "@/app/components/tech-badge";
 import { HomePageInfo } from "@/app/types/page-info";
 import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 import { techBadgeAnimation } from '@/app/lib/animations';
+import { FaDownload } from "react-icons/fa";
 
 type HomeSectionProps = {
     homeInfo: HomePageInfo
 }
 
-//Efeito de digitação
+// Componente de Notificação
+const Notification = ({ message, show }: { message: string; show: boolean }) => {
+    return (
+        <motion.div
+            className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-300 border-4 border-green-600 text-green-800 px-6 py-3 rounded-lg shadow-lg text-sm font-semibold"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: show ? 1 : 0, y: show ? 0 : -20 }}
+            transition={{ duration: 0.3 }}
+        >
+            {message}
+        </motion.div>
+    );
+};
+
+export default function DownloadButton() {
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+
+    const handleDownload = () => {
+        setIsDownloading(true);
+        setShowNotification(true);
+
+        // Simula o tempo de "download" antes de abrir o link
+        setTimeout(() => {
+            window.open("https://drive.google.com/file/d/17t2bS9XysV-8EBmTUbO6wC5A0ZVrKKcs/view?usp=drive_link", "_blank");
+            setIsDownloading(false);
+            setShowNotification(false);
+        }, 2000);
+    };
+
+    return (
+        <>
+            <Button 
+                className="w-max shadow-button mb-3 sm:mb-0 flex items-center gap-2 h-12"
+                onClick={handleDownload}
+                disabled={isDownloading}
+            >
+                CV
+                <motion.div
+                    animate={isDownloading ? { scale: [1, 1.3, 1] } : {}}
+                    transition={{ duration: 0.4, repeat: isDownloading ? Infinity : 0 }}
+                >
+                    <FaDownload size={20} />
+                </motion.div>
+            </Button>
+
+            <Notification message="Download iniciado..." show={showNotification} />
+        </>
+    );
+}
+
+// Efeito de digitação
 const TypingEffect = ({ text }: { text: string }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [index, setIndex] = useState(0);
@@ -67,9 +119,6 @@ const TypingEffect = ({ text }: { text: string }) => {
         </div>
     );
 };
-export default TypingEffect;
-
-
 
 export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
     const handleContact = () => {
@@ -131,17 +180,23 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                         ))}
                     </div>
 
-                    <div className="mt-6 lg:mt-10 flex sm:items-center sm:gap-5 flex-col sm:flex-row">
-                        <Button className="w-max shadow-button" onClick={handleContact}>
-                            Entre em contato
-                            <HiArrowNarrowRight size={18} />
-                        </Button>
+                    <div className="mt-6 lg:mt-10 flex flex-wrap items-center gap-3 sm:gap-5">
+                        <div className="flex flex-wrap gap-3 sm:gap-5">
+                            <DownloadButton />
+                            <Button 
+                                className="w-max shadow-button h-12"
+                                onClick={handleContact}
+                            >
+                                Entre em contato
+                                <HiArrowNarrowRight size={18} />
+                            </Button>
+                        </div>
 
                         <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
                             {homeInfo.socials.map((contact, index) => (
                                 <a
                                     href={contact.url}
-                                    key={'contact-${index}'}
+                                    key={`contact-${index}`}
                                     target="_blank"
                                     className=" hover:text-gray-100 transition-colors"
                                 >
@@ -164,7 +219,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                         width={420}
                         height={404}
                         src={homeInfo.profilePicture.url}
-                        alt="Foto de perfil do Gabriel Borges"
+                        alt="Foto de perfil do Richard Castro"
                     />
                 </motion.div>
             </div>
