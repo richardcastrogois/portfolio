@@ -4,6 +4,7 @@ import { WorkExperience } from "./components/pages/home/work-experience";
 import { KnownTechs } from "./components/pages/home/known-techs";
 import { HomePageData } from "./types/page-info";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
+import { Carousel } from "./components/carousel";
 
 export const metadata = {
   title: 'Home',
@@ -69,15 +70,15 @@ const getPageData = async (): Promise<HomePageData> => {
 }
 
 export default async function Home() {
-  const { page:pageData, workExperiences }  = await getPageData();
-
+  const { page: pageData, workExperiences } = await getPageData();
 
   return (
     <>
       <HeroSection homeInfo={pageData} />
       <KnownTechs techs={pageData.knownTechs} />
+      <Carousel />
       <HighlightedProjects projects={pageData.highlightProjects} />
       <WorkExperience experiences={workExperiences} />
     </>
-  )
+  );
 }

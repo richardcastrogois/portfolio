@@ -45,10 +45,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           transition= {{ duration: 0.7 }}
         >
           <Image
-          width={20}
-          height={20}
+          width={25}
+          height={25}
           alt=""
-          src="/images/icons/project-title-icon.svg"
+          src="/saint_500.png"
+          className="filter brightness-0 invert"
           />
           {project.title}
         </motion.h3>
