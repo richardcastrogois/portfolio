@@ -70,51 +70,40 @@ export const Carousel: React.FC = () => {
         <HorizontalDivider />
       </div>
 
-      <div className="flex flex-col items-center relative">  
+      <div className="flex flex-col items-center relative h-[300px] md:h-[400px] overflow-hidden">
         <motion.div
-          className="flex items-center justify-center w-full h-[300px] md:h-[400px] overflow-hidden relative mt-0 mb-0 lg:mt-8"
+          className="flex items-center justify-center w-full h-full relative"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          exit= {{ opacity: 0, y: 50}}
+          exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 1 }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <div
             ref={carouselRef}
-            className="relative w-full max-w-4xl h-full lg:max-w-3xl perspective-500 transform-style-preserve-3d flex justify-center"
+            className="flex w-full h-full transition-transform duration-300 ease-out"
+            style={{
+              transform: `translateX(-${active * 100}%)`,
+            }}
           >
-            {certifications.map((card, i) => {
-              const distance = active - i;
-              const isActive = distance === 0;
-
-              return (
-                <div
-                  key={i}
-                  className="absolute transition-all duration-300 ease-out flex justify-center items-center"
-                  style={{
-                    transform: isActive ? "none" : `translateX(${Math.sign(distance) * 100}%)`, // Movimento horizontal simples
-                    opacity: isActive ? 1 : 0, // Apenas o card ativo é visível
-                    pointerEvents: isActive ? "auto" : "none",
-                    zIndex: isActive ? 10 : 5 - Math.abs(distance),
-                    width: "100%",
-                    maxWidth: "80vw",
-                    height: "100%",
-                  }}
-                >
-                  <Card title={card.title} content={card.content} image={card.image} />
-                </div>
-              );
-            })}
+            {certifications.map((card, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-full h-full flex items-center justify-center"
+              >
+                <Card title={card.title} content={card.content} image={card.image} />
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        <div className="w-full mt-0">
+        <div className="w-full mt-4">
           <Dots count={certifications.length} active={active} onClick={(index) => setActive(index)} />
         </div>
       </div>
 
-      <div className="w-full flex justify-center mt-2">
+      <div className="w-full flex justify-center mt-4">
         <p className="text-sm md:text-base text-center text-gray-600">
           {certifications[active]?.content || "Nenhum conteúdo disponível"}
         </p>
