@@ -58,7 +58,7 @@ O projeto está organizado da seguinte forma:
 ## 🌐 Acesse o Portfólio
 
 Você pode acessar o portfólio online através do link:  
-🔗 [Meu Portfólio Online](https://devrichard-portfolio.vercel.app/)
+🔗 <a href="https://devrichard-portfolio.vercel.app/" target="_blank">Meu Portfólio Online</a>
 <br><br><br><br>  
 
 
