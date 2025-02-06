@@ -40,7 +40,7 @@ export default function DownloadButton() {
 
         // Simula o tempo de "download" antes de abrir o link
         setTimeout(() => {
-            window.open("https://drive.google.com/file/d/17t2bS9XysV-8EBmTUbO6wC5A0ZVrKKcs/view?usp=drive_link", "_blank");
+            window.open("https://drive.google.com/file/d/1vvZZwe4YVETCwi3vHSmgmNs0dbqDGTuL/view?usp=drive_link", "_blank");
             setIsDownloading(false);
             setShowNotification(false);
         }, 2000);
