@@ -64,7 +64,7 @@ export const Carousel: React.FC = () => {
   }, []);
 
   return (
-    <section className="container py-8">
+    <section className="container py-16">
       <SectionTitle subtitle="competências" title="Certificações" />
       <div>
         <HorizontalDivider />
@@ -72,7 +72,7 @@ export const Carousel: React.FC = () => {
 
       <div className="flex flex-col items-center relative">  
         <motion.div
-          className="flex items-center justify-center w-full h-auto overflow-hidden relative mt-0 mb-0 lg:mt-8"
+          className="flex items-center justify-center w-full h-[300px] md:h-[400px] overflow-hidden relative mt-0 mb-0 lg:mt-8"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           exit= {{ opacity: 0, y: 50}}
@@ -82,7 +82,7 @@ export const Carousel: React.FC = () => {
         >
           <div
             ref={carouselRef}
-            className="relative w-full max-w-4xl aspect-[4/3] lg:max-w-3xl lg:aspect-[3/2] perspective-500 transform-style-preserve-3d flex justify-center"
+            className="relative w-full max-w-4xl h-full lg:max-w-3xl perspective-500 transform-style-preserve-3d flex justify-center"
           >
             {certifications.map((card, i) => {
               const distance = active - i;
@@ -93,20 +93,13 @@ export const Carousel: React.FC = () => {
                   key={i}
                   className="absolute transition-all duration-300 ease-out flex justify-center items-center"
                   style={{
-                    transform: `
-                      rotateY(${(distance / 3) * 50}deg)
-                      scaleY(${1 + (Math.abs(distance) / 3) * -0.4})
-                      translateZ(${(Math.abs(distance) / 3) * -30}rem)
-                      translateX(${Math.sign(distance) * -5}rem)
-                    `,
-                    filter: isActive ? "none" : `blur(${Math.abs(distance) / 3}rem)`,
+                    transform: isActive ? "none" : `translateX(${Math.sign(distance) * 100}%)`, // Movimento horizontal simples
+                    opacity: isActive ? 1 : 0, // Apenas o card ativo é visível
                     pointerEvents: isActive ? "auto" : "none",
-                    display: Math.abs(distance) > MAX_VISIBILITY ? "none" : "block",
                     zIndex: isActive ? 10 : 5 - Math.abs(distance),
                     width: "100%",
-                    maxWidth: "60vw",
+                    maxWidth: "80vw",
                     height: "100%",
-                    aspectRatio: "4/3",
                   }}
                 >
                   <Card title={card.title} content={card.content} image={card.image} />
