@@ -43,7 +43,7 @@ Este portfólio foi desenvolvido utilizando as mais recentes tecnologias do ecos
 ## 📂 Estrutura do Projeto  
   
 O projeto está organizado da seguinte forma:  
-seu-repositorio/
+````seu-repositorio/
 ├── public/              # Arquivos estáticos (imagens, ícones, etc.)
 ├── src/
 │   ├── components/      # Componentes reutilizáveis
@@ -52,7 +52,7 @@ seu-repositorio/
 │   └── utils/           # Funções utilitárias
 ├── README.md            # Este arquivo
 └── package.json         # Dependências do projeto
-
+````
 <br><br>
 
 ## 🌐 Acesse o Portfólio
