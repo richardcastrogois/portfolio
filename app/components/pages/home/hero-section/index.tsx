@@ -38,9 +38,16 @@ export default function DownloadButton() {
         setIsDownloading(true);
         setShowNotification(true);
 
-        // Simula o tempo de "download" antes de abrir o link
+        
         setTimeout(() => {
-            window.open("https://drive.google.com/file/d/1vvZZwe4YVETCwi3vHSmgmNs0dbqDGTuL/view?usp=drive_link", "_blank");
+            const pdfPath = "/Curriculo2025.pdf";
+            const link = document.createElement("a");
+            link.href = pdfPath;
+            link.download = "Curriculo-Richard.pdf";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    
             setIsDownloading(false);
             setShowNotification(false);
         }, 2000);
