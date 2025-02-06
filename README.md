@@ -64,12 +64,12 @@ Você pode acessar o portfólio online através do link:
 
 ## 🖥 Project Images  
   
-  ![Apresentação](/site01.png)
-  ![Conhecimentos](/site02.png)
-  ![Certificações](/site03.png)
-  ![Projetos em Destaque](/site04.png)
-  ![Experiencia Profissional](/site05.png)
-  ![Entre em Contato](/site06.png)
+  ![Apresentação](public/site01.png)
+  ![Conhecimentos](public/site02.png)
+  ![Certificações](public/site03.png)
+  ![Projetos em Destaque](public/site04.png)
+  ![Experiencia Profissional](public/site05.png)
+  ![Entre em Contato](public/site06.png)
 
 ## 📝 Como Executar Localmente
 Se você deseja rodar o projeto localmente, siga os passos abaixo:
