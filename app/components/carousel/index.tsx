@@ -16,7 +16,8 @@ interface CardProps {
 
 const certifications = [
   { title: "Certificação 1", content: "Imersão Inteligência Artificial Alura", image: "/certalura01.jpg" },
-  { title: "Certificação 2", content: "Proficiency Achievement Certificate: Low Intermediate", image: "/download_page-0001.jpg" },
+  { title: "Certificação 2", content: "Imersão Front-End 2º Edição", image: "/ImersaoFront.jpg" },
+  { title: "Certificação 3", content: "Proficiency Achievement Certificate: Low Intermediate", image: "/download_page-0001.jpg" },
 ];
 
 const Card: React.FC<CardProps> = ({ title, content, image }) => (
