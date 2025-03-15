@@ -15,9 +15,36 @@ interface CardProps {
 }
 
 const certifications = [
-  { title: "Certificação 1", content: "Imersão Inteligência Artificial Alura", image: "/certalura01.jpg" },
-  { title: "Certificação 2", content: "Imersão Front-End 2º Edição", image: "/ImersaoFront.jpg" },
-  { title: "Certificação 3", content: "Proficiency Achievement Certificate: Low Intermediate", image: "/download_page-0001.jpg" },
+  {
+    title: "Certificação 1",
+    content: "Imersão Inteligência Artificial Alura",
+    image: "/certalura01.jpg",
+  },
+  {
+    title: "Certificação 2",
+    content: "Imersão Front-End 2º Edição",
+    image: "/ImersaoFront.jpg",
+  },
+  {
+    title: "Certificação 3",
+    content: "Proficiency Achievement Certificate: Low Intermediate",
+    image: "/download_page-0001.jpg",
+  },
+  {
+    title: "Certificação 4",
+    content: "Programação para Internet - Faculdade Wyden",
+    image: "/certifWyden.jpg",
+  },
+  {
+    title: "Certificação 5",
+    content: "Jornada Full Stack - Hashtag Treinamentos",
+    image: "/certifHashtag.png",
+  },
+  {
+    title: "Certificação 6",
+    content: "Full Stack Week - 7º Edição",
+    image: "/certifFullStack.jpg",
+  },
 ];
 
 const Card: React.FC<CardProps> = ({ title, content, image }) => (
