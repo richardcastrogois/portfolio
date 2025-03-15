@@ -38,7 +38,7 @@ const certifications = [
   {
     title: "Certificação 5",
     content: "Jornada Full Stack - Hashtag Treinamentos",
-    image: "/certifHashtag.jpg",
+    image: "/CertifHashtag.jpg",
   },
   {
     title: "Certificação 6",
