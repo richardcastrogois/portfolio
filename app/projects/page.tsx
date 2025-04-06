@@ -17,11 +17,11 @@ const getPageData = async (): Promise<ProjectsPageData> => {
         thumbnail {
           url
         }
-        technologies {
+        technologies(first: 100) {
           name
         }
       }
-    }`
+    }`;
 
   return fetchHygraphQuery(
     query,

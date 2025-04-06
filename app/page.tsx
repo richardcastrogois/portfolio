@@ -7,8 +7,8 @@ import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 import { Carousel } from "./components/carousel";
 
 export const metadata = {
-  title: 'Home',
-}
+  title: "Home",
+};
 
 const getPageData = async (): Promise<HomePageData> => {
   const query = `
@@ -17,7 +17,7 @@ const getPageData = async (): Promise<HomePageData> => {
         introduction {
           raw
         }
-        technologies {
+        technologies(first: 100) {
           name
         }
         profilePicture {
@@ -27,7 +27,7 @@ const getPageData = async (): Promise<HomePageData> => {
           url
           iconSvg
         }
-        knownTechs {
+        knownTechs(first: 100) {
           iconSvg
           name
           startDate
@@ -39,7 +39,7 @@ const getPageData = async (): Promise<HomePageData> => {
           }
           title
           shortDescription
-          technologies {
+          technologies(first: 100) {
             name
           }
         }
@@ -56,18 +56,15 @@ const getPageData = async (): Promise<HomePageData> => {
         description {
           raw
         }
-        technologies {
+        technologies(first: 100) {
           name
         }
       }
     }
-  `
+  `;
 
-  return fetchHygraphQuery(
-    query,
-    60 * 60 
-  )
-}
+  return fetchHygraphQuery(query, 60 * 60);
+};
 
 export default async function Home() {
   const { page: pageData, workExperiences } = await getPageData();
