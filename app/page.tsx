@@ -31,6 +31,7 @@ const getPageData = async (): Promise<HomePageData> => {
           iconSvg
           name
           startDate
+          category
         }
         highlightProjects {
           slug
@@ -58,12 +59,14 @@ const getPageData = async (): Promise<HomePageData> => {
         }
         technologies(first: 100) {
           name
+          category
         }
       }
     }
   `;
 
   return fetchHygraphQuery(query, 60 * 60);
+  // return fetchHygraphQuery(query, 0); // 0 desativa o cache
 };
 
 export default async function Home() {

@@ -32,19 +32,21 @@ const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
         raw
         text
       }
-      technologies {
+      technologies(first: 100) {
         name
+        category
       }
       liveProjectUrl
       githubUrl
     }
   }
-  `
+  `;
 
-  return fetchHygraphQuery(
-    query,
-    60 * 60 
-  )
+  return fetchHygraphQuery(query, 60 * 60);
+
+  /*
+  return fetchHygraphQuery(query, 0); // 0 desativa o cache
+  */
 }
 
 export default async function Project ({ params: { slug } }: ProjectProps) {

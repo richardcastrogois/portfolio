@@ -4,7 +4,8 @@ export type KnownTech = {
   iconSvg: string;
   name: string;
   startDate: string;
-}
+  category?: string;
+};
 
 export type ProjectSection = {
   title: string;

@@ -19,14 +19,16 @@ const getPageData = async (): Promise<ProjectsPageData> => {
         }
         technologies(first: 100) {
           name
+          category
         }
       }
     }`;
 
-  return fetchHygraphQuery(
-    query,
-    60 * 60 
-  )
+  return fetchHygraphQuery(query, 60 * 60);
+
+  /*
+  return fetchHygraphQuery(query, 0); // 0 desativa o cache
+  */
 }
 
 export default async function Projects () {
