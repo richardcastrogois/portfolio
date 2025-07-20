@@ -45,7 +45,7 @@ export default function DownloadButton() {
     setShowNotification(true);
 
     setTimeout(() => {
-      const pdfPath = "/Curriculo2025.pdf";
+      const pdfPath = "/curriculoo2025.pdf";
       const link = document.createElement("a");
       link.href = pdfPath;
       link.download = "Curriculo-Richard.pdf";
