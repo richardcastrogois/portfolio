@@ -229,15 +229,17 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
             transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <Image
-              className="w-[298px] h-[298px] lg:w-[420px] lg:h-[404px] rounded-lg object-cover"
-              width={420}
-              height={404}
-              src={homeInfo.profilePicture.url}
-              priority
-              quality={90}
-              alt="Foto de perfil do Richard Castro"
-            />
+            {homeInfo.profilePicture && (
+              <Image
+                className="w-[298px] h-[298px] lg:w-[420px] lg:h-[404px] rounded-lg object-cover"
+                width={420}
+                height={404}
+                src={homeInfo.profilePicture.url}
+                priority
+                quality={90}
+                alt="Foto de perfil do Richard Castro"
+              />
+            )}
           </motion.div>
 
           <motion.svg

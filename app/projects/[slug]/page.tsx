@@ -1,65 +1,70 @@
+// app/projects/[slug]/page.tsx
+
 import { ProjectDetails } from "@/app/components/pages/project/project-details";
 import { ProjectSections } from "@/app/components/pages/project/project-sections";
 import { ProjectPageData, ProjectsPageStaticData } from "@/app/types/page-info";
 import { fetchHygraphQuery } from "@/app/utils/fetch-hygraph-query";
 import { Metadata } from "next";
 
-type ProjectProps = {
-  params: {
-    slug: string;
-  }
-}
+export const dynamic = "force-dynamic";
 
-const getProjectDetails = async (slug: string): Promise<ProjectPageData> => {
+type ProjectProps = {
+  params: { slug: string };
+  searchParams: { lang: string };
+};
+
+const getProjectDetails = async (
+  slug: string,
+  lang: string
+): Promise<ProjectPageData> => {
   const query = `
-  query ProjectQuery() {
-    project(where: {slug: "${slug}"}) {
-      pageThumbnail {
-        url
-      }
-      thumbnail {
-        url
-      }
-      sections {
-        title
-        image {
-          url
+    query ProjectDetailsQuery($slug: String!, $locale: Locale!) {
+      project(where: {slug: $slug}, locales: [$locale]) {
+        pageThumbnail { url }
+        thumbnail { url }
+        sections {
+          title
+          image { url }
         }
+        title
+        shortDescription
+        description {
+          raw
+          text
+        }
+        technologies(first: 100) {
+          name
+          category
+        }
+        liveProjectUrl
+        githubUrl
       }
-      title
-      shortDescription
-      description {
-        raw
-        text
-      }
-      technologies(first: 100) {
-        name
-        category
-      }
-      liveProjectUrl
-      githubUrl
     }
-  }
   `;
 
-  return fetchHygraphQuery(query, 60 * 60);
+  return fetchHygraphQuery(query, { slug, locale: lang });
+};
 
-  /*
-  return fetchHygraphQuery(query, 0); // 0 desativa o cache
-  */
-}
+export default async function Project({ params, searchParams }: ProjectProps) {
+  const lang = searchParams.lang || "en";
+  const data = await getProjectDetails(params.slug, lang);
 
-export default async function Project ({ params: { slug } }: ProjectProps) {
-  const { project } = await getProjectDetails (slug)
+  if (!data || !data.project) {
+    return <h2>Projeto não encontrado.</h2>;
+  }
 
   return (
     <>
-      <ProjectDetails project={project} />
-      <ProjectSections sections={project.sections} />
+      <ProjectDetails project={data.project} />
+      <ProjectSections sections={data.project.sections} />
     </>
-  )
+  );
 }
 
+// =======================================================================
+// PODE APAGAR OU COMENTAR ESTA FUNÇÃO INTEIRA
+// =======================================================================
+/*
 export async function generateStaticParams() {
   const query = `
     query ProjectsSlugsQuery() {
@@ -68,17 +73,25 @@ export async function generateStaticParams() {
       }
     }
   `
-
   const { projects } = await fetchHygraphQuery<ProjectsPageStaticData>(query)
 
   return projects
 }
+*/
+// =======================================================================
 
 export async function generateMetadata({
-  params: { slug }
+  params,
+  searchParams,
 }: ProjectProps): Promise<Metadata> {
-  const data = await getProjectDetails(slug)
-  const project = data.project;
+  const lang = searchParams.lang || "en";
+  const data = await getProjectDetails(params.slug, lang);
+
+  if (!data || !data.project) {
+    return { title: "Projeto não encontrado" };
+  }
+
+  const { project } = data;
 
   return {
     title: project.title,
@@ -89,8 +102,8 @@ export async function generateMetadata({
           url: project.thumbnail.url,
           width: 1200,
           height: 630,
-        }
-      ]
-    }
-  }
+        },
+      ],
+    },
+  };
 }
