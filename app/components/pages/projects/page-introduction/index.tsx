@@ -7,8 +7,10 @@ import { SectionTitle } from "@/app/components/section-title";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "@/app/hook/useTranslations";
 
 export const PageIntroduction = () => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const lang = searchParams.get("lang");
 
@@ -17,8 +19,8 @@ export const PageIntroduction = () => {
   return (
     <section className="w-full h-[450px] lg:h-[630px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-2">
       <SectionTitle
-        subtitle="projetos"
-        title="Meus Projetos"
+        subtitle={t.projects_page_subtitle}
+        title={t.projects_page_title}
         className="text-center items-center [&>h3:text-4xl]"
       />
       <motion.div
@@ -29,13 +31,11 @@ export const PageIntroduction = () => {
         transition={{ duration: 0.6 }}
       >
         <p className="text-gray-400 text-center max-w-[640px] my-6 text-sm sm:text-base">
-          Aqui você poderá ver alguns dos trabalhos que eu desenvolvi. Navegue à
-          vontade e explore os projetos para ver como foram criados, as
-          tecnologias utilizadas e as funcionalidades implementadas.
+          {t.projects_page_description}
         </p>
         <CustomLink href={homeHref}>
           <HiArrowNarrowLeft size={20} />
-          Voltar para Home
+          {t.projects_page_back_button}
         </CustomLink>
       </motion.div>
     </section>

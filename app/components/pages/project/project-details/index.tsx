@@ -14,12 +14,14 @@ import { RichText } from "@/app/components/rich-text";
 import { motion } from "framer-motion";
 import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "@/app/hook/useTranslations";
 
 type ProjectDetailsProps = {
   project: Project;
 };
 
 export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const lang = searchParams.get("lang");
   const backHref = lang ? `/projects?lang=${lang}` : "/projects";
@@ -29,9 +31,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
       <motion.div
         className="absolute inset-0 z-[-1]"
         style={{
-          background: project.pageThumbnail
-            ? `url(/images/hero-bg.png) no-repeat center/cover, url(${project.pageThumbnail.url}) no-repeat center/cover`
-            : `url(/images/hero-bg.png) no-repeat center/cover`,
+          background: `url(/images/hero-bg.png) no-repeat center/cover, url(${project.pageThumbnail?.url}) no-repeat center/cover`,
         }}
         initial={{ opacity: 0, scale: 1.3 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -39,7 +39,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
       />
 
       <SectionTitle
-        subtitle="projetos"
+        subtitle={t.project_details_subtitle}
         title={project.title}
         className="text-center items-center sm:[&>h3]:text-4xl"
       />
@@ -67,7 +67,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
             <Button className="min-w-[180px]">
               <TbBrandGithub size={20} />
-              Repositório
+              {t.project_details_repo_button}
             </Button>
           </a>
         )}
@@ -80,7 +80,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
           >
             <Button className="min-w-[180px]">
               <FiGlobe size={20} />
-              Projeto Online
+              {t.project_details_online_button}
             </Button>
           </a>
         )}
@@ -88,7 +88,7 @@ export const ProjectDetails = ({ project }: ProjectDetailsProps) => {
 
       <Link href={backHref}>
         <HiArrowNarrowLeft size={20} />
-        Voltar para projetos
+        {t.project_details_back_button}
       </Link>
     </section>
   );

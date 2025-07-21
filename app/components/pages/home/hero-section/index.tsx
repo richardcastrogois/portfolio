@@ -13,6 +13,7 @@ import { HiArrowNarrowRight } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { techBadgeAnimation } from "@/app/lib/animations";
 import { FaDownload } from "react-icons/fa";
+import { useTranslations } from "@/app/hook/useTranslations";
 
 type HomeSectionProps = {
   homeInfo: HomePageInfo;
@@ -135,6 +136,7 @@ const TypingEffect = ({ text }: { text: string }) => {
 };
 
 export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
+  const t = useTranslations(); // 2. CHAMAR O HOOK
   const handleContact = () => {
     const contactSection = document.querySelector(
       "#contact"
@@ -176,7 +178,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="font-mono text-emerald-400">Olá, meu nome é</p>
+          <p className="font-mono text-emerald-400">{t.hero_greeting}</p>
           <h2 className="text-4xl font-medium mt-2">
             <TypingEffect text="Richard Castro" />
           </h2>
@@ -203,7 +205,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                 className="w-max shadow-button h-12"
                 onClick={handleContact}
               >
-                Entre em contato
+                {t.contact_button}
                 <HiArrowNarrowRight size={18} />
               </Button>
             </div>

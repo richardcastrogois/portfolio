@@ -8,12 +8,15 @@ import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
+import { useTranslations } from "@/app/hook/useTranslations";
 
 type ProjectCardProps = {
   project: Project;
 };
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const t = useTranslations();
+
   return (
     <motion.div
       className="flex gap-6 lg:gap-12 flex-col lg:flex-row"
@@ -34,7 +37,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             width={420}
             height={304}
             src={project.thumbnail.url}
-            alt={`Thumbnail do projeto ${project.title}`}
+            alt={t.project_card_alt_thumbnail.replace("{title}", project.title)}
             className="w-full h-full object-cover rounded-lg"
           />
         )}
@@ -75,9 +78,8 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           ))}
         </div>
 
-        {/* MUDANÇA PRINCIPAL: O <Link> FOI REMOVIDO DAQUI E TRANSFORMADO EM UM <div> */}
-        <div className="inline-flex items-center gap-2 font-medium text-gray-300 hover:text-emerald-500 transition-colors">
-          Ver projeto
+        <div className="inline-flex items-center gap-2 font-medium text-gray-300 group-hover:text-emerald-500 transition-colors">
+          {t.project_card_view_project}
           <HiArrowNarrowRight />
         </div>
       </div>

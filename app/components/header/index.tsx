@@ -7,19 +7,23 @@ import Link from "next/link";
 import { NavItem } from "./nav-item";
 import { motion } from "framer-motion";
 import { LanguageSwitcher } from "./language-switcher";
-
-const NAV_ITEMS = [
-  {
-    name: "Home",
-    link: "/",
-  },
-  {
-    name: "Projects",
-    link: "/projects",
-  },
-];
+import { useTranslations } from "@/app/hook/useTranslations"; // 1. IMPORTAR O HOOK
 
 export const Header = () => {
+  const t = useTranslations(); // 2. CHAMAR O HOOK
+
+  // 3. MOVER A CONSTANTE PARA DENTRO DO COMPONENTE E USAR AS TRADUÇÕES
+  const NAV_ITEMS = [
+    {
+      name: t.nav_home,
+      link: "/",
+    },
+    {
+      name: t.nav_projects,
+      link: "/projects",
+    },
+  ];
+
   return (
     <motion.header
       className="absolute top-0 w-full z-10 h-24 flex items-center justify-center"
