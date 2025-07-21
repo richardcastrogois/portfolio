@@ -1,3 +1,5 @@
+//app/components/pages/home/hero-section/index.tsx
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -115,10 +117,10 @@ const TypingEffect = ({ text }: { text: string }) => {
   return (
     <div
       className={`
-                text-shadow-subtleNeonGreen      
-                animate-pulseNeon      
-                text-green          
-                inline-block
+              text-shadow-subtleNeonGreen       
+              animate-pulseNeon       
+              text-green            
+              inline-block
             `}
       style={{
         display: "inline-block",
@@ -212,6 +214,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
                   href={contact.url}
                   key={`contact-${index}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className=" hover:text-gray-100 transition-colors"
                 >
                   <CMSIcon icon={contact.iconSvg} className="hover:scale-125" />
@@ -242,6 +245,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
             )}
           </motion.div>
 
+          {/* ÁREA DA CORREÇÃO */}
           <motion.svg
             className="absolute w-full h-full"
             fill="transparent"
@@ -249,13 +253,16 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
             xmlns="http://www.w3.org/2000/svg"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: "easeInOut" }}
             viewport={{ once: true }}
             animate={{
               scale: [1, 1.03, 1],
             }}
-            // @ts-ignore - Ignoramos um pequeno aviso do TypeScript aqui
-            transition2={{
+            // MUDANÇA PRINCIPAL: As duas props de transição foram unidas em uma só.
+            // O nome 'transition2' foi corrigido e o objeto foi mesclado na prop 'transition'.
+            transition={{
+              // Transição para a opacidade do whileInView
+              opacity: { duration: 0.7, delay: 0.5, ease: "easeInOut" },
+              // Transição para a animação de 'scale' do 'animate'
               scale: {
                 duration: 20,
                 repeat: Infinity,

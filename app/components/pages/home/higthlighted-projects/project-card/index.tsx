@@ -1,19 +1,19 @@
-'use client'
+//app/components/pages/home/higthlighted-projects/project-card/index.tsx
 
-import { Link } from "@/app/components/link";
+"use client";
+
 import { TechBadge } from "@/app/components/tech-badge";
 import { Project } from "@/app/types/projects";
-import Image from "next/image"
+import Image from "next/image";
 import { HiArrowNarrowRight } from "react-icons/hi";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 import { fadeUpAnimation, techBadgeAnimation } from "@/app/lib/animations";
 
 type ProjectCardProps = {
-  project: Project
-}
+  project: Project;
+};
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  
   return (
     <motion.div
       className="flex gap-6 lg:gap-12 flex-col lg:flex-row"
@@ -75,11 +75,12 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           ))}
         </div>
 
-        <Link href={`/projects/${project.slug}`}>
+        {/* MUDANÇA PRINCIPAL: O <Link> FOI REMOVIDO DAQUI E TRANSFORMADO EM UM <div> */}
+        <div className="inline-flex items-center gap-2 font-medium text-gray-300 hover:text-emerald-500 transition-colors">
           Ver projeto
           <HiArrowNarrowRight />
-        </Link>
+        </div>
       </div>
     </motion.div>
   );
-}
+};

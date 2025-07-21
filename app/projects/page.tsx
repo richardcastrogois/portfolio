@@ -23,7 +23,7 @@ const getPageData = async (lang: string): Promise<ProjectsPageData> => {
     }
   `;
 
-  return fetchHygraphQuery(query, { locale: lang });
+  return fetchHygraphQuery(query, { locale: lang },0);
 };
 
 export default async function Projects({

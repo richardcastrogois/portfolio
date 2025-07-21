@@ -42,7 +42,7 @@ const getProjectDetails = async (
     }
   `;
 
-  return fetchHygraphQuery(query, { slug, locale: lang });
+  return fetchHygraphQuery(query, { slug, locale: lang },0);
 };
 
 export default async function Project({ params, searchParams }: ProjectProps) {
@@ -98,11 +98,16 @@ export async function generateMetadata({
     description: project.description.text,
     openGraph: {
       images: [
-        {
-          url: project.thumbnail.url,
-          width: 1200,
-          height: 630,
-        },
+        // Adicionamos uma verificação: só incluir a imagem se ela existir
+        ...(project.thumbnail
+          ? [
+              {
+                url: project.thumbnail.url,
+                width: 1200,
+                height: 630,
+              },
+            ]
+          : []),
       ],
     },
   };

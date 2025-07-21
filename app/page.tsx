@@ -8,7 +8,7 @@ import { HomePageData } from "./types/page-info";
 import { fetchHygraphQuery } from "./utils/fetch-hygraph-query";
 import { Carousel } from "./components/carousel";
 
-const getPageData = async (lang: string): Promise<HomePageData> => {
+const getPageData = async (locale: string): Promise<HomePageData> => {
   const query = `
     query PageInfoQuery($locale: Locale!) {
       page(where: {slug: "home"}, locales: [$locale]) {
@@ -17,7 +17,21 @@ const getPageData = async (lang: string): Promise<HomePageData> => {
         profilePicture { url }
         socials { url, iconSvg }
         knownTechs(first: 100) { iconSvg, name, startDate, category }
-        highlightProjects { slug, thumbnail { url }, title, shortDescription, technologies(first: 100) { name } }
+        
+        # AQUI COMEÇA A CORREÇÃO
+        highlightProjects {
+          slug
+          title
+          shortDescription
+          thumbnail { # <-- ESTA LINHA FOI ADICIONADA
+            url
+          }
+          technologies(first: 100) {
+            name
+          }
+        }
+        # AQUI TERMINA A CORREÇÃO
+
       }
       workExperiences(locales: [$locale]) {
         companyLogo { url }
@@ -28,7 +42,11 @@ const getPageData = async (lang: string): Promise<HomePageData> => {
     }
   `;
 
-  return fetchHygraphQuery(query, { locale: lang });
+  return fetchHygraphQuery(
+    query,
+    { locale },
+    0 // Sem cache
+  );
 };
 
 export default async function Home({

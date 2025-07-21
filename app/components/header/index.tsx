@@ -1,11 +1,12 @@
-'use client'
+//app/components/header/index.tsx
 
-import Image from "next/image"
-import Link from "next/link"
-import { NavItem } from "./nav-item"
-import { motion } from 'framer-motion'
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { NavItem } from "./nav-item";
+import { motion } from "framer-motion";
 import { LanguageSwitcher } from "./language-switcher";
-
 
 const NAV_ITEMS = [
   {
@@ -33,6 +34,8 @@ export const Header = () => {
             alt="Logo RC Dev"
             width={160}
             height={80}
+            className="h-auto"
+            priority
           />
         </Link>
 
@@ -41,10 +44,8 @@ export const Header = () => {
             <NavItem label={item.name} href={item.link} key={item.name} />
           ))}
 
-          {/* Linha de separação visual (opcional) */}
           <div className="hidden sm:block w-px h-6 bg-gray-600" />
 
-          {/* 2. ADICIONE O COMPONENTE AQUI */}
           <LanguageSwitcher />
         </nav>
       </div>

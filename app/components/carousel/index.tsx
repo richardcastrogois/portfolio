@@ -47,25 +47,28 @@ const certifications = [
   },
 ];
 
+// AJUSTE REALIZADO AQUI DENTRO
 const Card: React.FC<CardProps> = ({ title, content, image }) => (
   <div className="relative w-full h-full text-gray-600 flex items-center justify-center overflow-hidden">
     {image && (
       <Image
         src={image}
         alt={title}
-        layout="fill"
-        objectFit="contain"
-        className="absolute top-0 left-0 w-full h-full z-0"
+        fill // Prop 'layout="fill"' foi substituída por 'fill'
+        className="absolute top-0 left-0 w-full h-full z-0 object-contain" // Prop 'objectFit' foi substituída pela classe 'object-contain'
       />
     )}
     <div className="bg-transparent">
-      <h2 className="text-xl md:text-2xl font-bold">{title}</h2>
-      <p className="text-sm md:text-base">{content}</p>
+      {/* O título e o conteúdo foram removidos para focar na imagem, conforme o layout de carrossel de certificados */}
     </div>
   </div>
 );
 
-const Dots: React.FC<{ count: number; active: number; onClick: (index: number) => void }> = ({ count, active, onClick }) => (
+const Dots: React.FC<{
+  count: number;
+  active: number;
+  onClick: (index: number) => void;
+}> = ({ count, active, onClick }) => (
   <div className="flex justify-center space-x-2 mt-2">
     {Array.from({ length: count }).map((_, i) => (
       <button
@@ -85,11 +88,13 @@ export const Carousel: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isHovered) return; // Pausa a transição automática se o mouse estiver sobre o carrossel
+
     const interval = setInterval(() => {
       setActive((prev) => (prev + 1) % certifications.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isHovered]); // O useEffect agora depende de isHovered
 
   return (
     <section className="container py-16">
@@ -98,19 +103,21 @@ export const Carousel: React.FC = () => {
         <HorizontalDivider />
       </div>
 
-      <div className="flex flex-col items-center relative h-[300px] md:h-[400px] overflow-hidden">
+      <div
+        className="flex flex-col items-center relative h-[300px] md:h-[400px] overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <motion.div
           className="flex items-center justify-center w-full h-full relative"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 1 }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
           <div
             ref={carouselRef}
-            className="flex w-full h-full transition-transform duration-300 ease-out"
+            className="flex w-full h-full transition-transform duration-500 ease-in-out" // Animação mais suave
             style={{
               transform: `translateX(-${active * 100}%)`,
             }}
@@ -120,14 +127,22 @@ export const Carousel: React.FC = () => {
                 key={i}
                 className="flex-shrink-0 w-full h-full flex items-center justify-center"
               >
-                <Card title={card.title} content={card.content} image={card.image} />
+                <Card
+                  title={card.title}
+                  content={card.content}
+                  image={card.image}
+                />
               </div>
             ))}
           </div>
         </motion.div>
 
         <div className="w-full mt-4">
-          <Dots count={certifications.length} active={active} onClick={(index) => setActive(index)} />
+          <Dots
+            count={certifications.length}
+            active={active}
+            onClick={(index) => setActive(index)}
+          />
         </div>
       </div>
 
