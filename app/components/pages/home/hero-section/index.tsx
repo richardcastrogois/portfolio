@@ -228,7 +228,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
 
         <div className="relative w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] flex items-center justify-center mb-8 lg:mb-0">
           <motion.div
-            className="origin-center mix-blend-lighten"
+            className="origin-center"
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
@@ -236,7 +236,7 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
           >
             {homeInfo.profilePicture && (
               <Image
-                className="w-[298px] h-[298px] lg:w-[420px] lg:h-[404px] rounded-lg object-cover"
+                className="w-[298px] h-[298px] lg:w-[420px] lg:h-[404px] rounded-lg object-cover mix-blend-lighten"
                 width={420}
                 height={404}
                 src={homeInfo.profilePicture.url}
@@ -259,12 +259,8 @@ export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
             animate={{
               scale: [1, 1.03, 1],
             }}
-            // MUDANÇA PRINCIPAL: As duas props de transição foram unidas em uma só.
-            // O nome 'transition2' foi corrigido e o objeto foi mesclado na prop 'transition'.
             transition={{
-              // Transição para a opacidade do whileInView
               opacity: { duration: 0.7, delay: 0.5, ease: "easeInOut" },
-              // Transição para a animação de 'scale' do 'animate'
               scale: {
                 duration: 20,
                 repeat: Infinity,
